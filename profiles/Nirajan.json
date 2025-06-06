@@ -1,0 +1,82 @@
+{
+  "name": "Nirajan Khadka",
+  "first_name": "Nirajan",
+  "last_name": "Khadka",
+  "email": "Nirajan.Tech@gmail.com",
+  "phone": "+1 (123) 456-7890",
+  "location": "Mississauga, ON",
+  "address": {
+    "street": "123 Tech Street",
+    "city": "Mississauga",
+    "state": "ON",
+    "zip": "L5R1A1",
+    "country": "Canada"
+  },
+  "linkedin_url": "https://linkedin.com/in/nirajankhadka",
+  "portfolio_url": "https://github.com/nirajankhadka",
+  "website_url": "https://nirajankhadka.com",
+  "summary_statement": "A highly motivated Data Analyst with expertise in Power BI, SQL, and Python, seeking to leverage data-driven insights to solve complex business problems. Proven ability in data visualization, statistical analysis, and machine learning. Eager to contribute to a dynamic team and drive business success through data-driven decision-making.",
+  "keywords": [
+    "Data Analyst",
+    "Power BI",
+    "SQL",
+    "Python",
+    "Business Intelligence",
+    "Data Visualization",
+    "Machine Learning",
+    "ETL"
+  ],
+  "skills": [
+    "Python (Pandas, NumPy, Scikit-learn)",
+    "SQL (PostgreSQL, MySQL)",
+    "Excel (Advanced)",
+    "Power BI",
+    "Tableau",
+    "Pandas",
+    "Scikit-learn",
+    "Data Mining",
+    "Statistical Analysis",
+    "Machine Learning"
+  ],
+  "experience_level": "Entry Level",
+  "education": [
+    {
+      "degree": "Master of Science in Data Science",
+      "university": "University of Advanced Technology",
+      "graduation_year": "2023",
+      "location": "Techville, USA"
+    },
+    {
+      "degree": "Bachelor of Engineering in Computer Science",
+      "university": "City Engineering College",
+      "graduation_year": "2021",
+      "location": "Innovate City, CA"
+    }
+  ],
+  "experience": [
+    {
+      "title": "Data Analyst Intern",
+      "company": "Data Insights Inc.",
+      "location": "Remote",
+      "dates": "May 2022 - Aug 2022",
+      "responsibilities": [
+        "Developed interactive dashboards using Power BI to track key performance indicators, resulting in a 15% improvement in reporting efficiency.",
+        "Performed data cleaning and preprocessing on large datasets using Python (Pandas) and SQL.",
+        "Assisted senior analysts with statistical modeling and A/B testing projects."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Customer Churn Prediction",
+      "technologies": "Python, Scikit-learn, Pandas, Matplotlib",
+      "description": "Developed a machine learning model to predict customer churn with 85% accuracy, enabling proactive retention strategies."
+    }
+  ],
+  "resume_docx": "Nirajan_Khadka_Resume.docx",
+  "cover_letter_docx": "Nirajan_Khadka_CoverLetter.docx",
+  "resume_pdf": "Nirajan_Khadka_Resume.pdf",
+  "cover_letter_pdf": "Nirajan_Khadka_CoverLetter.pdf",
+  "ollama_model": "mistral",
+  "browser": "chromium"
+}
