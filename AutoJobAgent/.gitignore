@@ -1,0 +1,81 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+.env
+.python-version
+
+# Generated documents and logs
+output/
+output/logs/
+output/*/documents/
+*.pdf
+*.xlsx
+*.csv
+
+# Temporary files
+temp/
+tmp/
+*.tmp
+.temp/
+.tmp/
+
+# Personal profile information
+# Keep the structure but ignore the content
+profiles/*/
+!profiles/*/profile.json
+!profiles/*/*.json
+profiles/*/*.docx
+profiles/*/*.pdf
+profiles/*/playwright/
+
+# Session data
+profiles/*/session.json
+ipc.json
+
+# System files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+desktop.ini
+
+# IDE-specific files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+.spyderproject
+.spyproject
+.ropeproject
+.project
+.pydevproject
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+eggs/
+.eggs/
+*.egg
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+
+# Playwright
+playwright-report/
+test-results/

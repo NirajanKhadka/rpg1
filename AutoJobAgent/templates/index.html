@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoJobAgent Dashboard</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 15px 0;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        header h1 {
+            margin: 0;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        header h1 span {
+            color: var(--primary-color);
+            margin-right: 10px;
+        }
+        
+        .connection-status {
+            float: right;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-right: 20px;
+            font-size: 14px;
+        }
+        
+        .connected {
+            background-color: var(--success-color);
+        }
+        
+        .disconnected {
+            background-color: var(--danger-color);
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-card h3 {
+            margin-top: 0;
+            color: var(--dark-color);
+        }
+        
+        .stat-card .value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .stat-card.applied .value { color: var(--success-color); }
+        .stat-card.failed .value { color: var(--danger-color); }
+        .stat-card.manual .value { color: var(--warning-color); }
+        .stat-card.skipped .value { color: var(--primary-color); }
+        
+        .controls {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .controls h2 {
+            margin: 0;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn-pause {
+            background-color: var(--warning-color);
+            color: white;
+        }
+        
+        .btn-resume {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .log-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .log-container h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+        
+        .log-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .log-table th, .log-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .log-table th {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            position: sticky;
+            top: 0;
+        }
+        
+        .log-table tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .status-applied { color: var(--success-color); font-weight: bold; }
+        .status-failed { color: var(--danger-color); font-weight: bold; }
+        .status-manual { color: var(--warning-color); font-weight: bold; }
+        .status-skipped { color: var(--primary-color); font-weight: bold; }
+        
+        .refresh-container {
+            text-align: right;
+            margin-bottom: 10px;
+        }
+        
+        .btn-refresh {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        
+        .status-indicator.running {
+            background-color: var(--success-color);
+        }
+        
+        .status-indicator.paused {
+            background-color: var(--warning-color);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            color: #777;
+            font-size: 0.9em;
+        }
+        
+        @media (max-width: 768px) {
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .controls {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .log-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><span>🤖</span> AutoJobAgent Dashboard</h1>
+            <div id="connection-status" class="connection-status disconnected">Disconnected</div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="stats-container">
+            <div class="stat-card applied">
+                <h3>Applied</h3>
+                <div id="applied-count" class="value">0</div>
+                <div>Applications submitted</div>
+            </div>
+            <div class="stat-card failed">
+                <h3>Failed</h3>
+                <div id="failed-count" class="value">0</div>
+                <div>Applications failed</div>
+            </div>
+            <div class="stat-card manual">
+                <h3>Manual</h3>
+                <div id="manual-count" class="value">0</div>
+                <div>Manual intervention</div>
+            </div>
+            <div class="stat-card skipped">
+                <h3>Skipped</h3>
+                <div id="skipped-count" class="value">0</div>
+                <div>Applications skipped</div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <div>
+                <h2>
+                    <span id="status-indicator" class="status-indicator running"></span>
+                    <span id="status-text">Running</span>
+                </h2>
+            </div>
+            <div>
+                <button id="pause-button" class="btn btn-pause">Pause</button>
+                <button id="resume-button" class="btn btn-resume" disabled>Resume</button>
+            </div>
+        </div>
+        
+        <div class="log-container">
+            <h2>Recent Applications</h2>
+            <div class="refresh-container">
+                <button id="refresh-button" class="btn btn-refresh">Refresh</button>
+            </div>
+            <div style="overflow-x: auto;">
+                <table class="log-table">
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Job Title</th>
+                            <th>Company</th>
+                            <th>Status</th>
+                            <th>ATS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="log-table-body">
+                        <tr>
+                            <td colspan="5" style="text-align: center;">Loading application logs...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>AutoJobAgent Dashboard &copy; 2025 | Refresh interval: 3 seconds</p>
+        </div>
+    </footer>
+    
+    <script>
+        // WebSocket connection
+        let socket = null;
+        let isConnected = false;
+        let isPaused = false;
+        
+        // DOM elements
+        const connectionStatus = document.getElementById('connection-status');
+        const appliedCount = document.getElementById('applied-count');
+        const failedCount = document.getElementById('failed-count');
+        const manualCount = document.getElementById('manual-count');
+        const skippedCount = document.getElementById('skipped-count');
+        const statusIndicator = document.getElementById('status-indicator');
+        const statusText = document.getElementById('status-text');
+        const pauseButton = document.getElementById('pause-button');
+        const resumeButton = document.getElementById('resume-button');
+        const refreshButton = document.getElementById('refresh-button');
+        const logTableBody = document.getElementById('log-table-body');
+        
+        // Connect to WebSocket
+        function connectWebSocket() {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsUrl = `${protocol}//${window.location.host}/ws`;
+            
+            socket = new WebSocket(wsUrl);
+            
+            socket.onopen = function(e) {
+                console.log('WebSocket connection established');
+                isConnected = true;
+                connectionStatus.textContent = 'Connected';
+                connectionStatus.classList.remove('disconnected');
+                connectionStatus.classList.add('connected');
+                
+                // Request initial data
+                socket.send(JSON.stringify({ command: 'get_stats' }));
+                socket.send(JSON.stringify({ command: 'get_logs', limit: 100 }));
+                socket.send(JSON.stringify({ command: 'get_status' }));
+            };
+            
+            socket.onmessage = function(event) {
+                const message = JSON.parse(event.data);
+                
+                if (message.type === 'stats') {
+                    updateStats(message.data);
+                } else if (message.type === 'logs') {
+                    updateLogs(message.data);
+                } else if (message.type === 'status') {
+                    updateStatus(message.paused);
+                }
+            };
+            
+            socket.onclose = function(event) {
+                console.log('WebSocket connection closed');
+                isConnected = false;
+                connectionStatus.textContent = 'Disconnected';
+                connectionStatus.classList.remove('connected');
+                connectionStatus.classList.add('disconnected');
+                
+                // Try to reconnect after a delay
+                setTimeout(connectWebSocket, 5000);
+            };
+            
+            socket.onerror = function(error) {
+                console.error('WebSocket error:', error);
+            };
+        }
+        
+        // Update stats display
+        function updateStats(stats) {
+            appliedCount.textContent = stats.Applied || 0;
+            failedCount.textContent = stats.Failed || 0;
+            manualCount.textContent = stats.Manual || 0;
+            skippedCount.textContent = stats.Skipped || 0;
+        }
+        
+        // Update logs table
+        function updateLogs(logs) {
+            logTableBody.innerHTML = '';
+            
+            if (!logs || logs.length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = '<td colspan="5" style="text-align: center;">No application logs found</td>';
+                logTableBody.appendChild(row);
+                return;
+            }
+            
+            logs.forEach(log => {
+                const row = document.createElement('tr');
+                
+                // Format timestamp
+                const timestamp = log.Timestamp || '';
+                
+                // Create table cells
+                row.innerHTML = `
+                    <td>${timestamp}</td>
+                    <td>${log['Job Title'] || ''}</td>
+                    <td>${log.Company || ''}</td>
+                    <td class="status-${getStatusClass(log.Status)}">${log.Status || ''}</td>
+                    <td>${log.ATS || ''}</td>
+                `;
+                
+                logTableBody.appendChild(row);
+            });
+        }
+        
+        // Update status display
+        function updateStatus(paused) {
+            isPaused = paused;
+            
+            if (paused) {
+                statusIndicator.classList.remove('running');
+                statusIndicator.classList.add('paused');
+                statusText.textContent = 'Paused';
+                pauseButton.disabled = true;
+                resumeButton.disabled = false;
+            } else {
+                statusIndicator.classList.remove('paused');
+                statusIndicator.classList.add('running');
+                statusText.textContent = 'Running';
+                pauseButton.disabled = false;
+                resumeButton.disabled = true;
+            }
+        }
+        
+        // Helper function to get status class
+        function getStatusClass(status) {
+            if (!status) return '';
+            
+            status = status.toLowerCase();
+            
+            if (status.includes('applied')) return 'applied';
+            if (status.includes('failed')) return 'failed';
+            if (status.includes('manual')) return 'manual';
+            if (status.includes('skipped')) return 'skipped';
+            
+            return '';
+        }
+        
+        // Fetch data via HTTP API
+        async function fetchStats() {
+            try {
+                const response = await fetch('/stats');
+                const data = await response.json();
+                updateStats(data);
+            } catch (error) {
+                console.error('Error fetching stats:', error);
+            }
+        }
+        
+        async function fetchLogs() {
+            try {
+                const response = await fetch('/log?limit=100');
+                const data = await response.json();
+                updateLogs(data);
+            } catch (error) {
+                console.error('Error fetching logs:', error);
+            }
+        }
+        
+        async function fetchStatus() {
+            try {
+                const response = await fetch('/status');
+                const data = await response.json();
+                updateStatus(data.paused);
+            } catch (error) {
+                console.error('Error fetching status:', error);
+            }
+        }
+        
+        // Pause the job application process
+        async function pauseProcess() {
+            try {
+                const response = await fetch('/action/pause', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    updateStatus(true);
+                }
+            } catch (error) {
+                console.error('Error pausing process:', error);
+            }
+        }
+        
+        // Resume the job application process
+        async function resumeProcess() {
+            try {
+                const response = await fetch('/action/resume', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    updateStatus(false);
+                }
+            } catch (error) {
+                console.error('Error resuming process:', error);
+            }
+        }
+        
+        // Event listeners
+        pauseButton.addEventListener('click', pauseProcess);
+        resumeButton.addEventListener('click', resumeProcess);
+        refreshButton.addEventListener('click', function() {
+            fetchStats();
+            fetchLogs();
+            fetchStatus();
+        });
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Try WebSocket connection first
+            connectWebSocket();
+            
+            // Fetch initial data via HTTP API as fallback
+            fetchStats();
+            fetchLogs();
+            fetchStatus();
+            
+            // Set up periodic refresh (every 3 seconds)
+            setInterval(function() {
+                if (!isConnected) {
+                    fetchStats();
+                    fetchLogs();
+                    fetchStatus();
+                }
+            }, 3000);
+        });
+    </script>
+</body>
+</html>

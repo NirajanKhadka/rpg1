@@ -1,0 +1,24 @@
+{
+  "name": "Nirajan Khadka",
+  "location": "Mississauga, ON",
+  "email": "Nirajan.Tech@gmail.com",
+  "phone": "437-344-5361",
+  "linkedin": "https://linkedin.com/in/nirajan-khadka",
+  "github": "https://github.com/NirajanKhadka",
+  "keywords": ["Data Analyst", "Power BI", "SQL", "Python", "Data Science", "Machine Learning"],
+  "skills": [
+    "Python", "Pandas", "NumPy", "Scikit-learn",
+    "Power BI", "Excel", "Tableau", "Git", "Jupyter",
+    "AWS", "EC2", "S3", "Lambda", "QuickSight", "Airflow",
+    "MySQL", "PostgreSQL", "R",
+    "Statistical Analysis", "Probability", "Data Visualization",
+    "Machine Learning", "Matplotlib", "Seaborn"
+  ],
+  "experience_level": "Entry Level",
+  "batch_default": 10,
+  "ollama_model": "mistral:7b",
+  "resume_docx": "Nirajan_Resume.docx",
+  "cover_letter_docx": "Nirajan_CoverLetter.docx",
+  "resume_pdf": "Nirajan_Resume.pdf",
+  "cover_letter_pdf": "Nirajan_CoverLetter.pdf"
+}

@@ -1,0 +1,29 @@
+PLACEHOLDER FOR RESUME TEMPLATE (.DOCX FILE)
+
+This text file is a placeholder for "Nirajan_Resume.docx" which should be a Microsoft Word document (.docx format).
+
+INSTRUCTIONS:
+1. Create your resume in Microsoft Word and save it as "Nirajan_Resume.docx" in this directory
+2. Your resume should be properly formatted with sections for:
+   - Contact information
+   - Professional summary
+   - Skills (include all skills mentioned in your profile.json)
+   - Work experience
+   - Education
+   - Projects (if applicable)
+
+HOW AUTOJOBAGENT USES YOUR RESUME:
+- The system will analyze job descriptions and identify missing keywords
+- It will intelligently modify your resume to include relevant keywords
+- Bullet points in your resume may be enhanced or modified
+- A new "Skills" section might be added if needed keywords can't be naturally incorporated
+- The customized resume will be converted to PDF before submission
+
+IMPORTANT FORMATTING TIPS:
+- Use bullet points (•) for experience and skills sections
+- Keep formatting simple and ATS-friendly
+- Avoid tables, text boxes, headers/footers, and complex formatting
+- Use standard fonts like Calibri, Arial, or Times New Roman
+- Include all your core skills as listed in your profile.json
+
+Replace this placeholder file with your actual resume in .docx format before running AutoJobAgent.

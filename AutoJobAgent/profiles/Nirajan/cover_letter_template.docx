@@ -1,0 +1,49 @@
+PLACEHOLDER FOR COVER LETTER TEMPLATE (.DOCX FILE)
+
+This text file is a placeholder for "Nirajan_CoverLetter.docx" which should be a Microsoft Word document (.docx format).
+
+INSTRUCTIONS:
+1. Create your cover letter template in Microsoft Word and save it as "Nirajan_CoverLetter.docx" in this directory
+2. Include the following template variables that will be automatically replaced:
+   - {{NAME}} - Your full name
+   - {{EMAIL}} - Your email address
+   - {{PHONE}} - Your phone number
+   - {{DATE}} - Current date (automatically formatted)
+   - {{JOB_TITLE}} - Position you're applying for
+   - {{COMPANY}} - Company name
+   - {{LOCATION}} - Job location
+
+EXAMPLE STRUCTURE:
+-------------------
+{{DATE}}
+
+Dear Hiring Manager at {{COMPANY}},
+
+I am writing to express my interest in the {{JOB_TITLE}} position at {{COMPANY}} in {{LOCATION}}. With my background in data analysis and machine learning, I believe I would be a valuable addition to your team.
+
+[Your customizable middle paragraphs here - these will be enhanced with job keywords]
+
+Thank you for considering my application. I look forward to the opportunity to discuss how my skills and experience align with your needs for the {{JOB_TITLE}} position.
+
+Sincerely,
+
+{{NAME}}
+{{EMAIL}}
+{{PHONE}}
+-------------------
+
+HOW AUTOJOBAGENT USES YOUR COVER LETTER:
+- The system will replace all template variables with actual values
+- It will analyze job descriptions and identify relevant keywords
+- The LLM will enhance your cover letter to include these keywords naturally
+- The customized cover letter will be converted to PDF before submission
+- If the greeting is generic, it will attempt to customize it with the company name
+
+IMPORTANT FORMATTING TIPS:
+- Keep formatting simple and professional
+- Use standard fonts like Calibri, Arial, or Times New Roman
+- Include clear paragraph breaks
+- Start with a generic greeting that can be customized
+- Ensure your template has placeholders for your signature and contact information
+
+Replace this placeholder file with your actual cover letter template in .docx format before running AutoJobAgent.
