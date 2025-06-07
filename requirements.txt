@@ -1,0 +1,30 @@
+# AutoJobAgent Requirements
+# Python 3.10+
+
+# Core Web Automation and Scraping
+playwright==1.*
+
+# Document Handling (.docx)
+python-docx
+
+# Excel File Handling (for application logs)
+openpyxl
+pandas
+
+# LLM Interaction (Local)
+ollama
+
+# Web Dashboard Backend
+fastapi
+uvicorn[standard] # Includes websockets, http-tools, etc. for a full-featured ASGI server
+jinja2 # For FastAPI HTML templating
+
+# Enhanced CLI
+rich
+
+# Development (Optional, but good for uvicorn auto-reload)
+watchfiles
+
+# Windows-specific for DOCX to PDF conversion via MS Word
+comtypes==1.3.2
+pywin32 ; platform_system=="Windows"
